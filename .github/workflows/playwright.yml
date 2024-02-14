@@ -1,0 +1,42 @@
+name: Playwright Tests
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  setup:
+    name: 'Playwright Tests'
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.41.1-jammy
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci
+  api:
+   name: 'Countries REST API Tests'
+   needs: [setup]
+   runs-on: ubuntu-latest
+   container:
+     image: mcr.microsoft.com/playwright:v1.41.1-jammy
+   steps:     
+      - name: Execute API tests
+        run: npx playwright test --project api
+        env:
+          HOME: /root
+  ui:
+   name: 'MarketWatch UI Tests'
+   needs: [setup]
+   runs-on: ubuntu-latest
+   container:
+     image: mcr.microsoft.com/playwright:v1.41.1-jammy
+   steps:     
+      - name: Execute UI tests
+        run: npx playwright test --project chromium firefox webkit
+        env:
+          HOME: /root
