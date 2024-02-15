@@ -39,6 +39,7 @@ jobs:
    container:
      image: mcr.microsoft.com/playwright:v1.41.2-jammy
    steps:     
+      - uses: actions/checkout@v3
       - name: Restore node_modules
         id: cache-npm
         uses: actions/cache@v3
@@ -65,6 +66,7 @@ jobs:
    container:
      image: mcr.microsoft.com/playwright:v1.41.2-jammy
    steps:     
+      - uses: actions/checkout@v3
       - name: Restore node_modules
         id: cache-npm
         uses: actions/cache@v3
