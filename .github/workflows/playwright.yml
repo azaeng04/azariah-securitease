@@ -10,7 +10,7 @@ jobs:
     name: 'Setup'
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.41.1-jammy
+      image: mcr.microsoft.com/playwright:v1.41.2-jammy
     steps:
       - uses: actions/checkout@v3
         
@@ -37,7 +37,7 @@ jobs:
    needs: [setup]
    runs-on: ubuntu-latest
    container:
-     image: mcr.microsoft.com/playwright:v1.41.1-jammy
+     image: mcr.microsoft.com/playwright:v1.41.2-jammy
    steps:     
       - name: Restore node_modules
         id: cache-npm
@@ -57,7 +57,7 @@ jobs:
    needs: [setup]
    runs-on: ubuntu-latest
    container:
-     image: mcr.microsoft.com/playwright:v1.41.1-jammy
+     image: mcr.microsoft.com/playwright:v1.41.2-jammy
    steps:     
       - name: Restore node_modules
         id: cache-npm
