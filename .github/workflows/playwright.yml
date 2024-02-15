@@ -7,7 +7,7 @@ on:
 
 jobs:
   setup:
-    name: 'Playwright Tests'
+    name: 'Setup'
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/playwright:v1.41.1-jammy
@@ -46,10 +46,7 @@ jobs:
           cache-name: cache-node-modules
         with:
           path: ~/.npm
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
    
       - name: Execute API tests
         run: npx playwright test --project api
@@ -69,10 +66,7 @@ jobs:
           cache-name: cache-node-modules
         with:
           path: ~/.npm
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
 
       - name: Execute UI tests
         run: npx playwright test --project chromium firefox webkit
