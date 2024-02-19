@@ -24,4 +24,8 @@
 * Install node_modules using `npm ci`
 * Execute the tests using `npm run pw:api`
 
+#### UI Mode
+* For a more comprehensive view try out UI mode by executing: `npm run pw:ui:mode`
+  
+
 Thank you for considering me for the QA Engineer role
