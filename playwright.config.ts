@@ -65,16 +65,6 @@ export default defineConfig({
       testDir,
       use: { ...devices["Desktop Safari"] },
     },
-    {
-      name: "api",
-      testDir: "./tests/api",
-      use: {
-        ...devices["Desktop Chrome"],
-        baseURL: "https://restcountries.com",
-      },
-      testMatch: "**/*.api-spec.ts",
-    },
-
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',

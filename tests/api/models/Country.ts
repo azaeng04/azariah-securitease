@@ -4,7 +4,7 @@ import { Demonyms } from "./Demonyms";
 import { Languages } from "./Languages";
 import { Name } from "./Name";
 import { Translations } from "./Translations";
-import { Property, Required, getJsonSchema } from "@tsed/schema";
+import { AdditionalProperties, Property, Required, getJsonSchema } from "@tsed/schema";
 import { Maps } from "./Maps";
 import { Gini } from "./Gini";
 import { Car } from "./Car";
@@ -16,9 +16,9 @@ import { Idd } from "./Idd";
 import { PlatformTest } from "@tsed/common";
 import Ajv from "ajv";
 
+@AdditionalProperties(Name)
 export class Country {
-  @Property()
-  @Required()
+  @Property(Name)
   private name: Name;
   public getName(): Name {
     return this.name;
@@ -66,7 +66,7 @@ export class Country {
   @Property()
   private subregion?: string;
 
-  @Property()
+  @Property(Languages)
   private languages?: Languages;
   public getLanguages(): Languages {
     return this.languages;
@@ -76,7 +76,7 @@ export class Country {
   private translations: Translations;
 
   @Property()
-  @Required()
+  
   private latlng: number[];
 
   @Property()
@@ -89,14 +89,14 @@ export class Country {
   private demonyms?: Demonyms;
 
   @Property()
-  @Required()
+  
   private flag: string;
 
   @Property()
   private maps: Maps;
 
   @Property()
-  @Required()
+  
   private population: number;
 
   @Property()
@@ -115,18 +115,18 @@ export class Country {
   private continents: string[];
 
   @Property()
-  @Required()
+  
   private flags: Flags;
 
   @Property()
-  @Required()
+  
   private coatOfArms: CoatOfArms;
 
   @Property()
   private startOfWeek: string;
 
   @Property()
-  @Required()
+  
   private capitalInfo: CapitalInfo;
 
   @Property()

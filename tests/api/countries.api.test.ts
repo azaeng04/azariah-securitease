@@ -1,25 +1,42 @@
 import "@tsed/ajv";
 import { PlatformTest } from "@tsed/common";
-import test, { expect } from "@playwright/test";
 import { CountryService } from "./services/country.service";
+import {
+  describe,
+  expect,
+  test,
+  beforeAll,
+  beforeEach,
+  afterEach,
+} from "bun:test";
 
 let responseData: any;
 let countriesService: CountryService;
-test.describe("Countries API", () => {
-  test.beforeAll(async () => {
+describe("Countries API", () => {
+  beforeAll(async () => {
     const response = await fetch("https://restcountries.com/v3.1/all");
     responseData = await response.json();
     countriesService = new CountryService(responseData);
   });
 
-  test.beforeEach(PlatformTest.create);
-  test.afterEach(PlatformTest.reset);
+  beforeEach(PlatformTest.create);
+  afterEach(PlatformTest.reset);
 
   test("should have a valid schema", async () => {
     const countries = countriesService.getCountries();
 
     for (const country of countries) {
+      const countryNames = country.getName();
+      const countryCommonName = countryNames.getCommon();
       const { isValidSchema, errors } = country.validateSchema();
+
+      if (errors) {
+        console.log(
+          `The following country "${countryCommonName}" has the following errors: ${JSON.stringify(
+            errors
+          )}`
+        );
+      }
 
       expect(errors).toBeNull();
       expect(isValidSchema).toBe(true);
@@ -39,9 +56,9 @@ test.describe("Countries API", () => {
   });
 
   test("should contain Sign Language as an official language in South Africa", async () => {
-    const languages = Object.values(
-      countriesService.getCountryOfficialLanguages("South Africa")
-    );
+    const southAfricanLanguages =
+      countriesService.getCountryOfficialLanguages("South Africa");
+    const languages = Object.values(southAfricanLanguages ?? []);
 
     const hasLanguage = Object.values(languages).includes("Sign Language");
 

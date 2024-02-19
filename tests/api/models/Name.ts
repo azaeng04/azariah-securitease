@@ -14,7 +14,7 @@ export class Name {
     return this.official;
   }
 
-  @Property()
+  @Property(NativeName)
   private nativeName?: NativeName;
   public getNativeName(): NativeName | undefined {
     return this.nativeName;

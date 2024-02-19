@@ -3,6 +3,7 @@
 ## Requirements
 * Node LTS
 * Docker
+* Bun
 
 ## Executing API Tests
 
@@ -10,9 +11,9 @@
 * Install node_modules using `docker compose run --rm api npm ci`
 * Execute the tests using `docker compose run --rm api`
   
-### with Node
+### with Bun
 * Install node_modules using `npm ci`
-* Execute the tests using `npm run pw:api`
+* Execute the tests using `bun test`
 
 ## Executing UI Tests
 

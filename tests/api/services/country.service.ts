@@ -15,17 +15,17 @@ export class CountryService {
   }
 
   getTotalCountries(): number {
-    return this.countries.length;
+    return this.getCountries().length;
   }
 
   getCountryByName(countryName: string): Country | undefined {
-    return this.countries.find(
+    return this.getCountries().find(
       (country) => country.getName().getCommon() === countryName
     );
   }
 
   getCountryOfficialLanguages(countryName: string): Languages | undefined {
-    return this.countries
+    return this.getCountries()
       .find((country) => country.getName().getCommon() === countryName)
       ?.getLanguages();
   }

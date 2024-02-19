@@ -1,4 +1,4 @@
-import { Locator, Page, expect } from "@playwright/test";
+import { expect, type Locator, type Page } from "@playwright/test";
 import { BannerPo } from "./banner.po";
 
 export class MartketWatchPage {

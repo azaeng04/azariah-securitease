@@ -37,7 +37,7 @@ jobs:
    needs: [setup]
    runs-on: ubuntu-latest
    container:
-     image: mcr.microsoft.com/playwright:v1.41.2-jammy
+     image: oven/bun
    steps:     
       - uses: actions/checkout@v3
       - name: Restore node_modules
@@ -56,7 +56,7 @@ jobs:
         run: npm ci
 
       - name: Execute API tests
-        run: npx playwright test --project api
+        run: bun test
         env:
           HOME: /root
   ui:
