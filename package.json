@@ -7,8 +7,8 @@
     "pw:api": "cross-env NODE_ENV=local npx playwright test --project api",
     "pw:ui": "npx bddgen && cross-env NODE_ENV=local playwright test --project chromium firefox webkit",
     "pw:api:ci": "cross-env NODE_ENV=ci npx playwright test --project api",
-    "pw:ui:ci": "npx bddgen && cross-env NODE_ENV=ci npx playwright test --project chromium firefox webkit",
-    "pw:ui:mode": "npx playwright test --ui --project api"
+    "pw:ui:ci": "npx bddgen && npx bddgen && cross-env NODE_ENV=ci npx playwright test --project chromium firefox webkit",
+    "pw:ui:mode": "npx bddgen && npx playwright test --ui --project api"
   },
   "keywords": [],
   "author": "",
