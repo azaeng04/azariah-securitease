@@ -14,5 +14,5 @@ services:
       - ./:/e2e/ui
       - $HOME/.npm:$HOME/.npm
     working_dir: /e2e/ui
-    command: npm run pw:api 
+    command: npm run pw:ui
 
