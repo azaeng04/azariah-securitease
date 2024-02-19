@@ -1,4 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
+import dotenv from "dotenv";
+import path from "path";
+import { defineBddConfig } from "playwright-bdd";
 
 /**
  * Read environment variables from file.
@@ -6,12 +9,23 @@ import { defineConfig, devices } from "@playwright/test";
  */
 // require('dotenv').config();
 
+if (!process.env.NODE_ENV) process.env.NODE_ENV = "local";
+
+dotenv.config({
+  path: path.resolve(__dirname, `.env.${process.env.NODE_ENV}`),
+  override: true,
+});
+
+const testDir = defineBddConfig({
+  paths: ["./tests/ui/features/*.feature"],
+  require: ["./tests/ui/*.ui-spec.ts", "./tests/ui/*.api-spec.ts"],
+});
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testMatch: "**/*.ui-spec.ts",
-  testDir: "./tests",
+  // testMatch: "**/*.ui-spec.ts",
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -29,26 +43,31 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "retain-on-failure",
+    headless: false,
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
       name: "chromium",
+      testDir,
       use: { ...devices["Desktop Chrome"] },
     },
 
     {
       name: "firefox",
+      testDir,
       use: { ...devices["Desktop Firefox"] },
     },
 
     {
       name: "webkit",
+      testDir,
       use: { ...devices["Desktop Safari"] },
     },
     {
       name: "api",
+      testDir: "./tests/api",
       use: {
         ...devices["Desktop Chrome"],
         baseURL: "https://restcountries.com",

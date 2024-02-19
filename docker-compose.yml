@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  api:
+    image: mcr.microsoft.com/playwright:v1.41.2-jammy
+    volumes:
+      - ./:/e2e/api
+      - $HOME/.npm:$HOME/.npm
+    working_dir: /e2e/api
+    command: npm run pw:api
+  ui:
+    image: mcr.microsoft.com/playwright:v1.41.2-jammy
+    volumes:
+      - ./:/e2e/ui
+      - $HOME/.npm:$HOME/.npm
+    working_dir: /e2e/ui
+    command: npm run pw:api 
+
